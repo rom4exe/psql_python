@@ -123,14 +123,16 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
 		res = (cur.fetchall())
 		print(res)
 
-with psycopg2.connect(database="clients_db", user="postgres", password="1") as conn:
-	create_db(conn)
-	add_client(conn, 'Roman', 'Safronov', 'rom.exe@mail.ru')
-	add_client(conn, 'Ivan', 'Sergeev', 'sergiv@mail.ru', '89991597845, 89617411223')
-	add_client(conn, 'Ivan', 'Petrov', 'petro@mail.ru', '89991697845, 83952640902')
-	add_phone(conn, 1, '89501414388, 89501417470')
-	delete_phone(conn, 1, '89501414388')
-	delete_client(conn, 1)
-	change_client(conn, 2,last_name = 'Sergeenko', phones = '89991597846, 89617411223')
-	find_client(conn, first_name='Ivan')
-conn.close()
+
+if __name__ == "__main__":
+	with psycopg2.connect(database="clients_db", user="postgres", password="1") as conn:
+		create_db(conn)
+		add_client(conn, 'Roman', 'Safronov', 'rom.exe@mail.ru')
+		add_client(conn, 'Ivan', 'Sergeev', 'sergiv@mail.ru', '89991597845, 89617411223')
+		add_client(conn, 'Ivan', 'Petrov', 'petro@mail.ru', '89991697845, 83952640902')
+		add_phone(conn, 1, '89501414388, 89501417470')
+		delete_phone(conn, 1, '89501414388')
+		delete_client(conn, 1)
+		change_client(conn, 2,last_name = 'Sergeenko', phones = '89991597846, 89617411223')
+		find_client(conn, first_name='Ivan')
+	conn.close()
