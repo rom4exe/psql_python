@@ -108,6 +108,9 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
 	if email:
 		prm1 = (*prm1, email)
 		prm2 = (*prm2, 'email')
+	if phone:
+		prm1 = (*prm1, phone)
+		prm2 = (*prm2, 'phone')
 	soed =''
 	usl = 'SELECT id, first_name, last_name, email, ARRAY_AGG(phone) \
 			FROM clients c \
@@ -135,4 +138,5 @@ if __name__ == "__main__":
 		delete_client(conn, 1)
 		change_client(conn, 2,last_name = 'Sergeenko', phones = '89991597846, 89617411223')
 		find_client(conn, first_name='Ivan')
+		find_client(conn, phone='89991597846')
 	conn.close()
