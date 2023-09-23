@@ -32,13 +32,13 @@ def add_client(conn, first_name, last_name, email, phones=None):
 				INSERT INTO phones (id_client, phone)
 				SELECT (SELECT id FROM clients WHERE first_name = %s and last_name = %s), %s
 				WHERE not exists (SELECT 1 FROM phones
-						WHERE id_client = (SELECT id_client
-											FROM phones
-											WHERE id_client = (SELECT id 
-																FROM clients 
-																WHERE first_name = %s
-											AND last_name = %s)
-						AND phone = %s)
+					WHERE id_client = (SELECT id_client
+						FROM phones
+						WHERE id_client = (SELECT id 
+											FROM clients 
+											WHERE first_name = %s
+						AND last_name = %s)
+					AND phone = %s)
 				);
 				""", (first_name, last_name, p, first_name, last_name, p,))
 	conn.commit()
